@@ -4,8 +4,12 @@ import java.util.List;
 
 public abstract class Player {
 	private float money;
-	private List<Plantation> properties;
+	private List<Crop> properties;
 
+	protected Player() {
+		money = 10;
+	}
+	
 	public float getMoney() {
 		return money;
 	}
@@ -18,15 +22,15 @@ public abstract class Player {
 		this.money += money;
 	}
 	
-	public List<Plantation> getProperties() {
+	public List<Crop> getProperties() {
 		return properties;
 	}
 
-	public void setProperties(List<Plantation> properties) {
+	public void setProperties(List<Crop> properties) {
 		this.properties = properties;
 	}
 
-	public void addProperty(Plantation property) {
+	public void addProperty(Crop property) {
 		this.properties.add(property);
 	}
 }
