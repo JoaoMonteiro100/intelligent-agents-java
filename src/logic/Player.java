@@ -1,36 +1,42 @@
 package logic;
 
-import java.util.List;
-
-public abstract class Player {
+public class Player {
+	
 	private float money;
-	private List<Crop> properties;
+	private Boolean extraChannel, overseer;
+	private String name;
+	
+	
+	public Player(String name){
+		this.name = name;
+		this.money = 10;
+		this.extraChannel = true;
+		this.overseer = false;
+	}
 
-	protected Player() {
-		money = 10;
+
+	public String getName() {
+		return name;
 	}
 	
-	public float getMoney() {
-		return money;
-	}
-
-	public void setMoney(float money) {
-		this.money = money;
+	public void pay(float quantity){
+		this.money += quantity;
 	}
 	
-	public void addMoney(float money) {
-		this.money += money;
+	public Boolean receive(float quantity){
+		if(money >= quantity){
+			this.money -= quantity;
+			return true;
+		}
+		return false;
 	}
 	
-	public List<Crop> getProperties() {
-		return properties;
+	public Boolean hasExtraChannel(){
+		return extraChannel;
 	}
-
-	public void setProperties(List<Crop> properties) {
-		this.properties = properties;
+	
+	public Boolean isOverseer(){
+		return overseer;
 	}
-
-	public void addProperty(Crop property) {
-		this.properties.add(property);
-	}
+	
 }
