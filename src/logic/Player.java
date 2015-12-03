@@ -32,4 +32,8 @@ public class Player {
 		return overseer;
 	}
 	
+	public int bid(){
+		return 0;
+	}
+	
 }

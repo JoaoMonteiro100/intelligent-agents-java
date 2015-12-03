@@ -5,7 +5,7 @@ public class Board {
 	private Land[][] regionA, regionB, regionC, regionD, regionE, regionF, regionG, regionH, regionI, regionJ, regionK, regionL;
 	private Land[][][] map;
 	
-	private Board() {
+	public Board() {
 		initialize();
 	}
 	

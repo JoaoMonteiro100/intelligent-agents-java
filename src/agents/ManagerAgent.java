@@ -11,8 +11,8 @@ public class ManagerAgent extends MyAgent {
 
 	private static final long serialVersionUID = 1L;
 	private static final int N_PLAYERS = 5;
-	private static final int N_ROUNDS = 9;
 	private Game gameInfo;
+	private int bid;
 	
 	private class ManagerBehaviour extends MyBehaviour{
 		

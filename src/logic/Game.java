@@ -9,9 +9,11 @@ import java.util.Random;
 public class Game {
 	
 	private Map<String, Player> players;
+	private Board board;
 	
 	public Game(){
-		players = new HashMap<String, Player>();		
+		players = new HashMap<String, Player>();
+		board = new Board();
 	}
 	
 	public void addPlayer(String name, Player p){
