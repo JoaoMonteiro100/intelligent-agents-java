@@ -29,7 +29,7 @@ public class ManagerAgent extends MyAgent {
 			//Sending a message to the four players to begin the game and saving players in gameInfo
 			for(int i = 0; i < result.length; i++){
 				String playerName = result[i].getLocalName();
-				Player p = new Player(playerName);
+				Player p = new Player();
 				gameInfo.addPlayer(playerName, p);
 				sendMessage(playerName, "START", ACLMessage.PROPOSE);
 			}
@@ -49,9 +49,7 @@ public class ManagerAgent extends MyAgent {
 			}
 			
 			//Randomly choose first player to play and tell him that
-			sendMessage(gameInfo.shuffleTurn().getName(), "PLAY", ACLMessage.REQUEST);
-			
-			//Game on bitches
+			sendMessage(gameInfo.shuffleTurn(), "BID", ACLMessage.REQUEST);			
 			
 		}
 

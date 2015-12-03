@@ -39,6 +39,5 @@ public class MyAgent extends Agent {
 		catch (FIPAException fe) {
 			fe.printStackTrace();
 		}
-	}
-	
+	}	
 }

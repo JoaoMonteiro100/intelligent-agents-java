@@ -18,13 +18,24 @@ public class Game {
 		players.put(name, p);
 	}
 	
-	public Player shuffleTurn() {
+	public String shuffleTurn() {
 		
 		Random random = new Random();
 		List<String> keys = new ArrayList<String>(players.keySet());
 		String randomKey = keys.get(random.nextInt(keys.size()) );
-		Player value = players.get(randomKey);
 		
-		return value;
+		return randomKey;
+	}
+	
+	public String overseerName(){
+		
+		for(int i = 0; i < players.keySet().size(); i++){
+			String name = players.keySet().toArray()[i].toString();
+			if(players.get(name).isOverseer())
+					return name;
+		}
+		
+		return null;
+			
 	}
 }

@@ -9,6 +9,7 @@ public class PlayerAgent extends MyAgent {
 	
 	private static final long serialVersionUID = 1L;
 	private Player playerInfo;
+	private Boolean gameOver = false;
 	private class PlayerBehaviour extends MyBehaviour {
 		
 		private static final long serialVersionUID = 1L;
@@ -16,26 +17,27 @@ public class PlayerAgent extends MyAgent {
 		@Override
 		public void action(){
 			
-			//Receiving a message
+			//Game cycle
 			ACLMessage msg = blockingReceive();
-			String content = msg.getContent();
-			String sender = msg.getSender().getLocalName();
-			
-			//If message received from manager telling people to start
-			if(sender.equals("manager") && content.equals("START"))
-				sendReply(msg, "GAME", ACLMessage.ACCEPT_PROPOSAL); //Accept START proposal
-
+			switch(msg.getContent()){
+			case "START": //confirma entrada em jogo
+				sendReply(msg, "GAME", ACLMessage.ACCEPT_PROPOSAL);
+				break;
+			case "BID": //pedido de licitacao no leilao de plantacoes
+				System.out.println(getAID().getLocalName() + " sera o primeiro a jogar");
+				break;				
+			}
 		}
 		
 		@Override
 		public boolean done() {
-			return false;
+			return gameOver;
 		}
 	};
 
 	protected void setup() {
 		
-		this.playerInfo = new Player(getAID().getLocalName());
+		this.playerInfo = new Player();
 		registryDF("Player", getAID().getLocalName());
 		
 		// Printout a welcome message
