@@ -1,7 +1,12 @@
 package logic;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 public class Board {
-	private Land A11, A12, A21, A22, B11, B12, B21, B22, C11, C12, C21, C22, D11, D12, D21, D22, E11, E12, E21, E22, F11, F12, F21, F22, G11, G12, G21, G22, H11, H12, H21, H22, I11, I12, I21, I22, J11, J12, J21, J22, K11, K12, K21, K22, L11, L12, L21, L22;
+	
+	/*private Land A11, A12, A21, A22, B11, B12, B21, B22, C11, C12, C21, C22, D11, D12, D21, D22, E11, E12, E21, E22, F11, F12, F21, F22, G11, G12, G21, G22, H11, H12, H21, H22, I11, I12, I21, I22, J11, J12, J21, J22, K11, K12, K21, K22, L11, L12, L21, L22;
 	private Land[][] regionA, regionB, regionC, regionD, regionE, regionF, regionG, regionH, regionI, regionJ, regionK, regionL;
 	private Land[][][] map;
 	
@@ -73,10 +78,12 @@ public class Board {
 		regionL = new Land[][]{{L11,L12},{L21,L22}};
 		
 		map = new Land[][][]{regionA, regionB, regionC, regionD, regionE, regionF, regionG, regionH, regionI, regionJ, regionK, regionL};
+	}*/
+	
+	private List<List<Crop>> cropBoard;
+	
+	public Board(){
+		cropBoard = new ArrayList<>();
 		
-		/*
-		 * MISSING EDGES (IRRIGATIONS)
-		 * AND INTERSECTIONS (WELLS)
-		 */
 	}
 }

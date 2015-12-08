@@ -12,9 +12,9 @@ public class ManagerAgent extends MyAgent {
 	private static final long serialVersionUID = 1L;
 	private static final int N_PLAYERS = 5;
 	private Game gameInfo;
-	private int bid;
+	private Boolean gameOver;
 	
-	private class ManagerBehaviour extends MyBehaviour{
+	private class StartingBehaviour extends MyBehaviour{
 		
 		private static final long serialVersionUID = 1L;
 
@@ -47,16 +47,31 @@ public class ManagerAgent extends MyAgent {
 					counter++;
 				}
 			}
-			
 			//Randomly choose first player to play and tell him that
 			sendMessage(gameInfo.shuffleTurn(), "BID", ACLMessage.REQUEST);			
-			
 		}
 
 		@Override
 		public boolean done() {
 			return true;
 		}
+	};
+	
+	private class ManagerBehaviour extends MyBehaviour{
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public void action() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public boolean done() {
+			return gameOver;
+		}
+		
 	};
 	
 	protected void setup() {
@@ -68,6 +83,7 @@ public class ManagerAgent extends MyAgent {
 		// Printout a welcome message
 		System.out.println("Manager is alive");
 		
+		addBehaviour(new StartingBehaviour());
 		addBehaviour(new ManagerBehaviour());
 	}
 	

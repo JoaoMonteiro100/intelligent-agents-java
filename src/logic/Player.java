@@ -2,8 +2,8 @@ package logic;
 
 public class Player {
 	
-	private float money;
-	private Boolean extraChannel, overseer;
+	protected double money;
+	protected Boolean extraChannel, overseer;
 	
 	
 	public Player(){
@@ -30,10 +30,5 @@ public class Player {
 	
 	public Boolean isOverseer(){
 		return overseer;
-	}
-	
-	public int bid(){
-		return 0;
-	}
-	
+	}	
 }

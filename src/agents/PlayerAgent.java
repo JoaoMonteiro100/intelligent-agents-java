@@ -22,10 +22,13 @@ public class PlayerAgent extends MyAgent {
 			switch(msg.getContent()){
 			case "START": //confirma entrada em jogo
 				sendReply(msg, "GAME", ACLMessage.ACCEPT_PROPOSAL);
+				System.out.println(getAID().getName() + " pronto a jogar");
+				playerInfo = new Player();
 				break;
 			case "BID": //pedido de licitacao no leilao de plantacoes
-				System.out.println(getAID().getLocalName() + " sera o primeiro a jogar");
-				break;				
+				System.out.println(getAID().getLocalName() + " sera o primeiro a licitar");
+				sendReply(msg, "B10", ACLMessage.PROPOSE);
+				break;
 			}
 		}
 		
