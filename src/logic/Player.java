@@ -1,6 +1,6 @@
 package logic;
 
-public class Player {
+public abstract class Player {
 	
 	protected double money;
 	protected Boolean extraChannel, overseer;
@@ -30,5 +30,7 @@ public class Player {
 	
 	public Boolean isOverseer(){
 		return overseer;
-	}	
+	}
+	
+	public abstract double bid();
 }

@@ -1,11 +1,12 @@
 package agents;
 
+import java.util.Scanner;
+
 import jade.core.AID;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
-import logic.Game;
-import logic.Player;
+import logic.*;
 
 public class ManagerAgent extends MyAgent {
 
@@ -29,9 +30,25 @@ public class ManagerAgent extends MyAgent {
 			//Sending a message to the four players to begin the game and saving players in gameInfo
 			for(int i = 0; i < result.length; i++){
 				String playerName = result[i].getLocalName();
-				Player p = new Player();
-				gameInfo.addPlayer(playerName, p);
-				sendMessage(playerName, "START", ACLMessage.PROPOSE);
+				System.out.println("Choose " + playerName + " strategy: A-Random | R-Rational | S-Spender");
+				Scanner reader = new Scanner(System.in);
+				char c = reader.findInLine(".").charAt(0);
+				switch(c){
+				case 'A':
+					Random a = new Random();
+					gameInfo.addPlayer(playerName, a);
+					break;
+				case 'R':
+					Rational r = new Rational();
+					gameInfo.addPlayer(playerName, r);
+					break;
+				case 'S':
+					Spender s = new Spender();
+					gameInfo.addPlayer(playerName, s);
+					break;
+				}
+				sendMessage(playerName, "START" + c, ACLMessage.PROPOSE);
+				//reader.close();
 			}
 			
 			//Wait acknowledgment of the four players to start the game
@@ -48,7 +65,7 @@ public class ManagerAgent extends MyAgent {
 				}
 			}
 			//Randomly choose first player to play and tell him that
-			sendMessage(gameInfo.shuffleTurn(), "BID", ACLMessage.REQUEST);			
+			sendMessage(gameInfo.shuffleTurn(), "BID", ACLMessage.REQUEST);		
 		}
 
 		@Override
@@ -63,8 +80,12 @@ public class ManagerAgent extends MyAgent {
 
 		@Override
 		public void action() {
-			// TODO Auto-generated method stub
-			
+			ACLMessage msg = blockingReceive();
+			switch(msg.getContent().substring(0, 1)){
+				case "B":
+					//TODO: Process bid
+					break;
+			}
 		}
 
 		@Override
@@ -77,11 +98,11 @@ public class ManagerAgent extends MyAgent {
 	protected void setup() {
 		
 		gameInfo = new Game();
-		
+		gameOver = false;
 		registryDF("Manager", getAID().getLocalName());
 		
 		// Printout a welcome message
-		System.out.println("Manager is alive");
+		System.out.println("Manager ready");
 		
 		addBehaviour(new StartingBehaviour());
 		addBehaviour(new ManagerBehaviour());

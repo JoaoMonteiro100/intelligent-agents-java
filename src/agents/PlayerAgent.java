@@ -4,6 +4,9 @@ import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import logic.Player;
+import logic.Random;
+import logic.Rational;
+import logic.Spender;
 
 public class PlayerAgent extends MyAgent {
 	
@@ -17,17 +20,23 @@ public class PlayerAgent extends MyAgent {
 		@Override
 		public void action(){
 			
-			//Game cycle
+			//Game cycle TODO: Continuar a meter aí mais mensagens
 			ACLMessage msg = blockingReceive();
 			switch(msg.getContent()){
-			case "START": //confirma entrada em jogo
+			case "STARTA": //confirma entrada em jogo
 				sendReply(msg, "GAME", ACLMessage.ACCEPT_PROPOSAL);
-				System.out.println(getAID().getName() + " pronto a jogar");
-				playerInfo = new Player();
+				playerInfo = new Random();
+				break;
+			case "STARTR":
+				sendReply(msg, "GAME", ACLMessage.ACCEPT_PROPOSAL);
+				playerInfo = new Rational();
+				break;
+			case "STARTS":
+				sendReply(msg, "GAME", ACLMessage.ACCEPT_PROPOSAL);
+				playerInfo = new Spender();
 				break;
 			case "BID": //pedido de licitacao no leilao de plantacoes
-				System.out.println(getAID().getLocalName() + " sera o primeiro a licitar");
-				sendReply(msg, "B10", ACLMessage.PROPOSE);
+				sendReply(msg, "B" + playerInfo.bid(), ACLMessage.PROPOSE); //TODO:Arranjar fórmulas para as bids
 				break;
 			}
 		}
@@ -40,7 +49,6 @@ public class PlayerAgent extends MyAgent {
 
 	protected void setup() {
 		
-		this.playerInfo = new Player();
 		registryDF("Player", getAID().getLocalName());
 		
 		// Printout a welcome message
