@@ -20,13 +20,10 @@ public class Game {
 		players.put(name, p);
 	}
 	
-	public String shuffleTurn() {
-		
-		Random random = new Random();
-		List<String> keys = new ArrayList<String>(players.keySet());
-		String randomKey = keys.get(random.nextInt(keys.size()) );
-		
-		return randomKey;
+	public int shuffleTurn() {
+		Random rand = new Random();
+	    int randomNum = rand.nextInt((5 - 1) + 1) + 1;
+	    return randomNum;
 	}
 	
 	public String overseerName(){

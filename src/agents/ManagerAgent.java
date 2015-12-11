@@ -14,6 +14,7 @@ public class ManagerAgent extends MyAgent {
 	private static final int N_PLAYERS = 5;
 	private Game gameInfo;
 	private Boolean gameOver;
+	private int playerTurn, maxBid, nBids, bestBidder;
 	
 	private class StartingBehaviour extends MyBehaviour{
 		
@@ -47,7 +48,7 @@ public class ManagerAgent extends MyAgent {
 					gameInfo.addPlayer(playerName, s);
 					break;
 				}
-				sendMessage(playerName, "START" + c, ACLMessage.PROPOSE);
+				sendMessage(playerName, "START" + c + "-", ACLMessage.PROPOSE);
 				//reader.close();
 			}
 			
@@ -64,8 +65,13 @@ public class ManagerAgent extends MyAgent {
 					counter++;
 				}
 			}
+			
 			//Randomly choose first player to play and tell him that
-			sendMessage(gameInfo.shuffleTurn(), "BID", ACLMessage.REQUEST);		
+			nBids = 0; 
+			maxBid = 0;
+			bestBidder = 0;
+			playerTurn = gameInfo.shuffleTurn();
+			sendMessage("player" + playerTurn, "BID", ACLMessage.REQUEST);
 		}
 
 		@Override
@@ -80,12 +86,28 @@ public class ManagerAgent extends MyAgent {
 
 		@Override
 		public void action() {
-			ACLMessage msg = blockingReceive();
-			switch(msg.getContent().substring(0, 1)){
-				case "B":
-					//TODO: Process bid
-					break;
+			if(nBids < N_PLAYERS){
+				ACLMessage msg = blockingReceive();
+				String[] a = msg.getContent().split("B");
+				int bid = Integer.parseInt(a[1].trim());
+				System.out.println("A bid do " + msg.getSender().getLocalName() + " foi " + bid);
+				if(bid > maxBid){
+					maxBid = bid;
+					bestBidder = playerTurn;
+				}
+				nBids += 1;
+				
+				if(playerTurn == 5)
+					playerTurn = 1;
+				else playerTurn += 1;
+				
+				sendMessage("player" + playerTurn, "BID", ACLMessage.REQUEST);
 			}
+			else{
+				System.out.println("Best bidder was player " + bestBidder);
+				gameOver = true;
+			}
+			//else escolher cartas e subornos
 		}
 
 		@Override

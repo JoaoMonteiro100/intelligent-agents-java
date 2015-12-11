@@ -2,21 +2,21 @@ package logic;
 
 public abstract class Player {
 	
-	protected double money;
+	protected int money;
 	protected Boolean extraChannel, overseer;
 	
 	
 	public Player(){
-		this.money = 10;
+		this.money = 100;
 		this.extraChannel = true;
 		this.overseer = false;
 	}
 	
-	public void pay(float quantity){
+	public void pay(int quantity){
 		this.money += quantity;
 	}
 	
-	public Boolean receive(float quantity){
+	public Boolean receive(int quantity){
 		if(money >= quantity){
 			this.money -= quantity;
 			return true;
@@ -32,5 +32,5 @@ public abstract class Player {
 		return overseer;
 	}
 	
-	public abstract double bid();
+	public abstract int bid();
 }

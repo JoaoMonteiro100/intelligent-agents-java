@@ -22,20 +22,20 @@ public class PlayerAgent extends MyAgent {
 			
 			//Game cycle TODO: Continuar a meter aí mais mensagens
 			ACLMessage msg = blockingReceive();
-			switch(msg.getContent()){
-			case "STARTA": //confirma entrada em jogo
+			switch(msg.getContent().split("-")[0]){
+			case "STARTA": //joining game as a random agent
 				sendReply(msg, "GAME", ACLMessage.ACCEPT_PROPOSAL);
 				playerInfo = new Random();
 				break;
-			case "STARTR":
+			case "STARTR": //joining game as a rational agent
 				sendReply(msg, "GAME", ACLMessage.ACCEPT_PROPOSAL);
 				playerInfo = new Rational();
 				break;
-			case "STARTS":
+			case "STARTS": // joining game as spender agent
 				sendReply(msg, "GAME", ACLMessage.ACCEPT_PROPOSAL);
 				playerInfo = new Spender();
 				break;
-			case "BID": //pedido de licitacao no leilao de plantacoes
+			case "BID": // bid on plantations
 				sendReply(msg, "B" + playerInfo.bid(), ACLMessage.PROPOSE); //TODO:Arranjar fórmulas para as bids
 				break;
 			}
