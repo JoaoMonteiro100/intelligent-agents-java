@@ -1,7 +1,7 @@
 package logic;
 
 /*
- * Any square on the board (includes empty lots, squares, wells and rivers)
+ * Any square on the board (includes empty lots, squares, wells and trenches)
  */
 public class Lot {
 	protected Boolean irrigated;

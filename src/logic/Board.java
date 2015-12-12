@@ -1,38 +1,37 @@
 package logic;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-
 public class Board {
 	
-	private Lot A11, A12, A21, A22,
-	B11, B12, B21, B22,
-	C11, C12, C21, C22,
-	D11, D12, D21, D22,
-	E11, E12, E21, E22,
-	F11, F12, F21, F22,
-	G11, G12, G21, G22,
-	H11, H12, H21, H22,
-	I11, I12, I21, I22,
-	J11, J12, J21, J22,
-	K11, K12, K21, K22,
-	L11, L12, L21, L22,
+	private Lot a1, a2, a3, a4,
+	b1, b2, b3, b4,
+	c1, c2, c3, c4,
+	d1, d2, d3, d4,
+	e1, e2, e3, e4,
+	f1, f2, f3, f4,
+	g1, g2, g3, g4,
+	h1, h2, h3, h4,
+	i1, i2, i3, i4,
+	j1, j2, j3, j4,
+	k1, k2, k3, k4,
+	l1, l2, l3, l4,
 	
-	//Rivers
-	R2, R4, R6,
-	R1, R3, R5, R7,
-	R8, R10, R12,
-	R9, R11, R13, R15,
-	R14, R16, R18,
+	//Trenches
+	t1, t3, t5, t7,
+	t2, t4, t6, t8, t10,
+	t9, t11, t13, t15,
+	t12, t14, t16, t18, t20,
+	t17, t19, t21, t23,
+	t22, t24, t26, t28, t30,
+	t25, t27, t29, t31,
 	
 	//Wells
-	W1, W2, W3,
-	W4, W5, W6;
+	w1, w2, w3, w4, w5,
+	w6, w7, w8, w9, w10,
+	w11, w12, w13, w14, w15,
+	w16, w17, w18, w19, w20;
 	
-	private Lot[] lands, rivers, wells;
-	private Lot[][] regionA, regionB, regionC, regionD, regionE, regionF, regionG, regionH, regionI, regionJ, regionK, regionL;
+	private Lot[] lands, trenches, wells;
+	//private Lot[][] regionA, regionB, regionC, regionD, regionE, regionF, regionG, regionH, regionI, regionJ, regionK, regionL;
 	
 	public Board() {
 		initialize();
@@ -40,107 +39,136 @@ public class Board {
 	
 	private void initialize() {
 		//Lands
-		A11 = new Lot();
-		A12 = new Lot();
-		A21 = new Lot();
-		A22 = new Lot();
-		B11 = new Lot();
-		B12 = new Lot();
-		B21 = new Lot();
-		B22 = new Lot();
-		C11 = new Lot();
-		C12 = new Lot();
-		C21 = new Lot();
-		C22 = new Lot();
-		D11 = new Lot();
-		D12 = new Lot();
-		D21 = new Lot();
-		D22 = new Lot();
-		E11 = new Lot();
-		E12 = new Lot();
-		E21 = new Lot();
-		E22 = new Lot();
-		F11 = new Lot();
-		F12 = new Lot();
-		F21 = new Lot();
-		F22 = new Lot();
-		G11 = new Lot();
-		G12 = new Lot();
-		G21 = new Lot();
-		G22 = new Lot();
-		H11 = new Lot();
-		H12 = new Lot();
-		H21 = new Lot();
-		H22 = new Lot();
-		I11 = new Lot();
-		I12 = new Lot();
-		I21 = new Lot();
-		I22 = new Lot();
-		J11 = new Lot();
-		J12 = new Lot();
-		J21 = new Lot();
-		J22 = new Lot();
-		K11 = new Lot();
-		K12 = new Lot();
-		K21 = new Lot();
-		K22 = new Lot();
-		L11 = new Lot();
-		L12 = new Lot();
-		L21 = new Lot();
-		L22 = new Lot();
+		a1 = new Lot();
+		a2 = new Lot();
+		a3 = new Lot();
+		a4 = new Lot();
+		b1 = new Lot();
+		b2 = new Lot();
+		b3 = new Lot();
+		b4 = new Lot();
+		c1 = new Lot();
+		c2 = new Lot();
+		c3 = new Lot();
+		c4 = new Lot();
+		d1 = new Lot();
+		d2 = new Lot();
+		d3 = new Lot();
+		d4 = new Lot();
+		e1 = new Lot();
+		e2 = new Lot();
+		e3 = new Lot();
+		e4 = new Lot();
+		f1 = new Lot();
+		f2 = new Lot();
+		f3 = new Lot();
+		f4 = new Lot();
+		g1 = new Lot();
+		g2 = new Lot();
+		g3 = new Lot();
+		g4 = new Lot();
+		h1 = new Lot();
+		h2 = new Lot();
+		h3 = new Lot();
+		h4 = new Lot();
+		i1 = new Lot();
+		i2 = new Lot();
+		i3 = new Lot();
+		i4 = new Lot();
+		j1 = new Lot();
+		j2 = new Lot();
+		j3 = new Lot();
+		j4 = new Lot();
+		k1 = new Lot();
+		k2 = new Lot();
+		k3 = new Lot();
+		k4 = new Lot();
+		l1 = new Lot();
+		l2 = new Lot();
+		l3 = new Lot();
+		l4 = new Lot();
 		
-		lands = new Lot[]{A11,A12,A21,A22,
-				B11,B12,B21,B22,
-				C11,C12,C21,C22,
-				D11,D12,D21,D22,
-				E11,E12,E21,E22,
-				F11,F12,F21,F22,
-				G11,G12,G21,G22,
-				H11,H12,H21,H22,
-				I11,I12,I21,I22,
-				J11,J12,J21,J22,
-				K11,K12,K21,K22,
-				L11,L12,L21,L22};
+		lands = new Lot[]{a1,a2,a3,a4,
+				b1,b2,b3,b4,
+				c1,c2,c3,c4,
+				d1,d2,d3,d4,
+				e1,e2,e3,e4,
+				f1,f2,f3,f4,
+				g1,g2,g3,g4,
+				h1,h2,h3,h4,
+				i1,i2,i3,i4,
+				j1,j2,j3,j4,
+				k1,k2,k3,k4,
+				l1,l2,l3,l4};
 		
-		//Rivers
-		R1 = new Lot();
-		R2 = new Lot();
-		R3 = new Lot();
-		R4 = new Lot();
-		R5 = new Lot();
-		R6 = new Lot();
-		R7 = new Lot();
-		R8 = new Lot();
-		R9 = new Lot();
-		R10 = new Lot();
-		R11 = new Lot();
-		R12 = new Lot();
-		R13 = new Lot();
-		R14 = new Lot();
-		R15 = new Lot();
-		R16 = new Lot();
-		R18 = new Lot();
+		//Trenches
+		t1 = new Lot();
+		t2 = new Lot();
+		t3 = new Lot();
+		t4 = new Lot();
+		t5 = new Lot();
+		t6 = new Lot();
+		t7 = new Lot();
+		t8 = new Lot();
+		t9 = new Lot();
+		t10 = new Lot();
+		t11 = new Lot();
+		t12 = new Lot();
+		t13 = new Lot();
+		t14 = new Lot();
+		t15 = new Lot();
+		t16 = new Lot();
+		t17 = new Lot();
+		t18 = new Lot();
+		t19 = new Lot();
+		t20 = new Lot();
+		t21 = new Lot();
+		t22 = new Lot();
+		t23 = new Lot();
+		t24 = new Lot();
+		t25 = new Lot();
+		t26 = new Lot();
+		t27 = new Lot();
+		t28 = new Lot();
+		t29 = new Lot();
+		t30 = new Lot();
+		t31 = new Lot();
 		
-		rivers = new Lot[]{R2, R4, R6,
-				R1, R3, R5, R7,
-				R8, R10, R12,
-				R9, R11, R13, R15,
-				R14, R16, R18};
+		trenches = new Lot[]{t1, t3, t5, t7,
+				t2, t4, t6, t8, t10,
+				t9, t11, t13, t15,
+				t12, t14, t16, t18, t20,
+				t17, t19, t21, t23,
+				t22, t24, t26, t28, t30,
+				t25, t27, t29, t31};
 		
 		//Wells
-		W1 = new Lot();
-		W2 = new Lot();
-		W3 = new Lot();
-		W4 = new Lot();
-		W5 = new Lot();
-		W6 = new Lot();
+		w1 = new Lot();
+		w2 = new Lot();
+		w3 = new Lot();
+		w4 = new Lot();
+		w5 = new Lot();
+		w6 = new Lot();
+		w7 = new Lot();
+		w8 = new Lot();
+		w9 = new Lot();
+		w10 = new Lot();
+		w11 = new Lot();
+		w12 = new Lot();
+		w13 = new Lot();
+		w14 = new Lot();
+		w15 = new Lot();
+		w16 = new Lot();
+		w17 = new Lot();
+		w18 = new Lot();
+		w19 = new Lot();
+		w20 = new Lot();
 		
-		wells = new Lot[]{W1, W2, W3,
-				W4, W5, W6};
-		
+		wells = new Lot[]{w1, w2, w3, w4, w5,
+				w6, w7, w8, w9, w10,
+				w11, w12, w13, w14, w15,
+				w16, w17, w18, w19, w20};
 		/*
-		 * Only keep the regions if they're useful for the GUI
-		 */
 		regionA = new Lot[][]{{A11,A12},{A21,A22}};
 		regionB = new Lot[][]{{B11,B12},{B21,B22}};
 		regionC = new Lot[][]{{C11,C12},{C21,C22}};
@@ -153,127 +181,188 @@ public class Board {
 		regionJ = new Lot[][]{{J11,J12},{J21,J22}};
 		regionK = new Lot[][]{{K11,K12},{K21,K22}};
 		regionL = new Lot[][]{{L11,L12},{L21,L22}};
+		*/
 	}
 	
-	private void irrigateConnectedLands(Lot lot) {
-		if (lot==R1) {
-			A21.irrigate();
-			A22.irrigate();
-			E11.irrigate();
-			E12.irrigate();
+	private void irrigateLands (Lot[] lots) {
+		for(int i = 0; i < lots.length; i++) {
+			lots[i].irrigate();
 		}
-		else if (lot==R2) {
-			A12.irrigate();
-			A22.irrigate();
-			B11.irrigate();
-			B21.irrigate();
+	}
+	
+	public Lot[] connectedLots (Lot lot) {
+		//trenches and lands
+		if (lot==t1) {
+			return new Lot[]{a1,a2};
 		}
-		else if (lot==R3) {
-			B21.irrigate();
-			B22.irrigate();
-			F11.irrigate();
-			F12.irrigate();
+		else if (lot==t2) {
+			return new Lot[]{a1,a3};
 		}
-		else if (lot==R4) {
-			B12.irrigate();
-			B22.irrigate();
-			C11.irrigate();
-			C21.irrigate();
+		else if (lot==t3) {
+			return new Lot[]{b1,b2};
 		}
-		else if (lot==R5) {
-			C21.irrigate();
-			C22.irrigate();
-			G11.irrigate();
-			G12.irrigate();
+		else if (lot==t4) {
+			return new Lot[]{a2,a4,b1,b3};
 		}
-		else if (lot==R6) {
-			C12.irrigate();
-			C22.irrigate();
-			D11.irrigate();
-			D21.irrigate();
+		else if (lot==t5) {
+			return new Lot[]{c1,c2};
 		}
-		else if (lot==R7) {
-			D21.irrigate();
-			D22.irrigate();
-			H11.irrigate();
-			H12.irrigate();
+		else if (lot==t6) {
+			return new Lot[]{b2,b4,c1,c3};
 		}
-		else if (lot==R8) {
-			E12.irrigate();
-			E22.irrigate();
-			F11.irrigate();
-			F21.irrigate();
+		else if (lot==t7) {
+			return new Lot[]{d1,d2};
 		}
-		else if (lot==R9) {
-			E21.irrigate();
-			E22.irrigate();
-			I11.irrigate();
-			I12.irrigate();
+		else if (lot==t8) {
+			return new Lot[]{c2,c4,d1,d3};
 		}
-		else if (lot==R10) {
-			F12.irrigate();
-			F22.irrigate();
-			G11.irrigate();
-			G21.irrigate();
+		else if (lot==t9) {
+			return new Lot[]{a3,a4,e1,e2};
 		}
-		else if (lot==R11) {
-			F21.irrigate();
-			F22.irrigate();
-			J11.irrigate();
-			J12.irrigate();
+		else if (lot==t10) {
+			return new Lot[]{d2,d4};
 		}
-		else if (lot==R12) {
-			G12.irrigate();
-			G22.irrigate();
-			H11.irrigate();
-			H21.irrigate();
+		else if (lot==t11) {
+			return new Lot[]{b3,b4,f1,f2};
 		}
-		else if (lot==R13) {
-			G21.irrigate();
-			G22.irrigate();
-			K11.irrigate();
-			K12.irrigate();
+		else if (lot==t12) {
+			return new Lot[]{e1,e3};
 		}
-		else if (lot==R14) {
-			I12.irrigate();
-			I22.irrigate();
-			J11.irrigate();
-			J21.irrigate();
+		else if (lot==t13) {
+			return new Lot[]{c3,c4,g1,g2};
 		}
-		else if (lot==R15) {
-			H21.irrigate();
-			H22.irrigate();
-			L11.irrigate();
-			L12.irrigate();
+		else if (lot==t14) {
+			return new Lot[]{e2,e4,f1,f3};
 		}
-		else if (lot==R16) {
-			J12.irrigate();
-			J22.irrigate();
-			K11.irrigate();
-			K21.irrigate();
+		else if (lot==t15) {
+			return new Lot[]{d3,d4,h1,h2};
 		}
-		else if (lot==R18) {
-			K12.irrigate();
-			K22.irrigate();
-			L11.irrigate();
-			L21.irrigate();
+		else if (lot==t16) {
+			return new Lot[]{f2,f4,g1,g3};
 		}
+		else if (lot==t17) {
+			return new Lot[]{e3,e4,i1,i2};
+		}
+		else if (lot==t18) {
+			return new Lot[]{g2,g4,h1,h3};
+		}
+		else if (lot==t20) {
+			return new Lot[]{h2,h4};
+		}
+		else if (lot==t21) {
+			return new Lot[]{g3,g4,k1,k2};
+		}
+		else if (lot==t22) {
+			return new Lot[]{i1,i3};
+		}
+		else if (lot==t23) {
+			return new Lot[]{h3,h4,l1,l2};
+		}
+		else if (lot==t24) {
+			return new Lot[]{i2,i4,j1,j3};
+		}
+		else if (lot==t25) {
+			return new Lot[]{i3,i4};
+		}
+		else if (lot==t26) {
+			return new Lot[]{j2,j4,k1,k3};
+		}
+		else if (lot==t27) {
+			return new Lot[]{j3,j4};
+		}
+		else if (lot==t28) {
+			return new Lot[]{k2,k4,l1,l3};
+		}
+		else if (lot==t29) {
+			return new Lot[]{k3,k4};
+		}
+		else if (lot==t30) {
+			return new Lot[]{l2,l4};
+		}
+		else if (lot==t31) {
+			return new Lot[]{l3,l4};
+		}
+		
+		//wells and trenches
+		else if (lot==w1) {
+			return new Lot[]{t1,t2};
+		}
+		else if (lot==w2) {
+			return new Lot[]{t1,t3,t4};
+		}
+		else if (lot==w3) {
+			return new Lot[]{t3,t5,t6};
+		}
+		else if (lot==w4) {
+			return new Lot[]{t5,t7,t8};
+		}
+		else if (lot==w5) {
+			return new Lot[]{t7,t10};
+		}
+		else if (lot==w6) {
+			return new Lot[]{t2,t9,t12};
+		}
+		else if (lot==w7) {
+			return new Lot[]{t4,t9,t11,t14};
+		}
+		else if (lot==w8) {
+			return new Lot[]{t6,t11,t13,t16};
+		}
+		else if (lot==w9) {
+			return new Lot[]{t8,t13,t15,t18};
+		}
+		else if (lot==w10) {
+			return new Lot[]{t10,t15,t20};
+		}
+		else if (lot==w11) {
+			return new Lot[]{t12,t17,t22};
+		}
+		else if (lot==w12) {
+			return new Lot[]{t14,t17,t19,t24};
+		}
+		else if (lot==w13) {
+			return new Lot[]{t16,t19,t21,t26};
+		}
+		else if (lot==w14) {
+			return new Lot[]{t18,t21,t23,t28};
+		}
+		else if (lot==w15) {
+			return new Lot[]{t20,t23,t30};
+		}
+		else if (lot==w16) {
+			return new Lot[]{t22,t25};
+		}
+		else if (lot==w17) {
+			return new Lot[]{t24,t25,t27};
+		}
+		else if (lot==w18) {
+			return new Lot[]{t26,t27,t29};
+		}
+		else if (lot==w19) {
+			return new Lot[]{t28,t29,t31};
+		}
+		else if (lot==w20) {
+			return new Lot[]{t30,t31};
+		}
+		
+		//default
+		else
+			return new Lot[]{};
 	}
 	
 	public void irrigate(Lot lot) {
-
 		//look in rivers
-		for(int i = 0; i < rivers.length; i++) {
-			if(Arrays.asList(rivers).contains(lot)){
-				rivers[i].irrigate();
-				irrigateConnectedLands(rivers[i]);
+		for(int i = 0; i < trenches.length; i++) {
+			if(trenches[i]==lot){
+				trenches[i].irrigate();
+				irrigateLands(connectedLots(trenches[i]));
 				return;
 			}
 		}
 		
 		//look in wells
 		for(int i = 0; i < wells.length; i++) {
-			if(Arrays.asList(wells).contains(lot)){
+			if(wells[i]==lot){
 				wells[i].irrigate();
 				return;
 			}
@@ -281,11 +370,14 @@ public class Board {
 		
 		//look in lands
 		for(int i = 0; i < lands.length; i++) {
-			if(Arrays.asList(lands).contains(lot)){
+			if(lands[i]==lot){
 				lands[i].irrigate();
 				return;
 			}
 		}
+		
+		//default
+		return;
 	}
 	
 	/*
