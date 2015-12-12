@@ -184,12 +184,18 @@ public class Board {
 		*/
 	}
 	
+	/*
+	 * Irrigates all lots given as argument
+	 */
 	private void irrigateLands (Lot[] lots) {
 		for(int i = 0; i < lots.length; i++) {
 			lots[i].irrigate();
 		}
 	}
 	
+	/*
+	 * Returns the trenches associated with a well, or the lands associated with a trench
+	 */
 	public Lot[] connectedLots (Lot lot) {
 		//trenches and lands
 		if (lot==t1) {
@@ -350,8 +356,11 @@ public class Board {
 			return new Lot[]{};
 	}
 	
+	/*
+	 * Irrigates a specific land, a specific well, or a trench with all the associated lands as well
+	 */
 	public void irrigate(Lot lot) {
-		//look in rivers
+		//look in trenches
 		for(int i = 0; i < trenches.length; i++) {
 			if(trenches[i]==lot){
 				trenches[i].irrigate();
@@ -378,6 +387,17 @@ public class Board {
 		
 		//default
 		return;
+	}
+	
+	/*
+	 * Looks for lands that are not being irrigated and reduces 1 worker for each
+	 */
+	public void reduceWorkersOverall() {
+		for (int i = 0; i < lands.length; i++) {
+			if(lands[i] instanceof Crop && !lands[i].isIrrigated){
+				((Crop) lands[i]).reduceWorkers();
+			}
+		}
 	}
 	
 	/*

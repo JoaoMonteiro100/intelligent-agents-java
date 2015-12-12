@@ -4,17 +4,17 @@ package logic;
  * Any square on the board (includes empty lots, squares, wells and trenches)
  */
 public class Lot {
-	protected Boolean irrigated;
+	protected Boolean isIrrigated;
 	
 	public Lot(){
-		this.irrigated = false;
+		this.isIrrigated = false;
 	}
 	
 	public void irrigate(){
-		this.irrigated = true;
+		this.isIrrigated = true;
 	}
 	
 	public Boolean isIrrigated() {
-		return this.irrigated;
+		return this.isIrrigated;
 	}
 }
