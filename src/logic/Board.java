@@ -1,5 +1,7 @@
 package logic;
 
+import java.util.List;
+
 public class Board {
 	
 	private Lot a1, a2, a3, a4,
@@ -194,9 +196,9 @@ public class Board {
 	}
 	
 	/*
-	 * Returns the trenches associated with a well, or the lands associated with a trench
+	 * Returns the lands associated with a trench
 	 */
-	public Lot[] connectedLots (Lot lot) {
+	public Lot[] connectedLands (Lot lot) {
 		//trenches and lands
 		if (lot==t1) {
 			return new Lot[]{a1,a2};
@@ -357,6 +359,170 @@ public class Board {
 	}
 	
 	/*
+	 * Returns the trenches associated with a well or another trench
+	 */
+	public Lot[] connectedTrenches (Lot lot) {
+		
+		//wells and trenches
+		if (lot==w1) {
+			return new Lot[]{t1,t2};
+		}
+		else if (lot==w2) {
+			return new Lot[]{t1,t3,t4};
+		}
+		else if (lot==w3) {
+			return new Lot[]{t3,t5,t6};
+		}
+		else if (lot==w4) {
+			return new Lot[]{t5,t7,t8};
+		}
+		else if (lot==w5) {
+			return new Lot[]{t7,t10};
+		}
+		else if (lot==w6) {
+			return new Lot[]{t2,t9,t12};
+		}
+		else if (lot==w7) {
+			return new Lot[]{t4,t9,t11,t14};
+		}
+		else if (lot==w8) {
+			return new Lot[]{t6,t11,t13,t16};
+		}
+		else if (lot==w9) {
+			return new Lot[]{t8,t13,t15,t18};
+		}
+		else if (lot==w10) {
+			return new Lot[]{t10,t15,t20};
+		}
+		else if (lot==w11) {
+			return new Lot[]{t12,t17,t22};
+		}
+		else if (lot==w12) {
+			return new Lot[]{t14,t17,t19,t24};
+		}
+		else if (lot==w13) {
+			return new Lot[]{t16,t19,t21,t26};
+		}
+		else if (lot==w14) {
+			return new Lot[]{t18,t21,t23,t28};
+		}
+		else if (lot==w15) {
+			return new Lot[]{t20,t23,t30};
+		}
+		else if (lot==w16) {
+			return new Lot[]{t22,t25};
+		}
+		else if (lot==w17) {
+			return new Lot[]{t24,t25,t27};
+		}
+		else if (lot==w18) {
+			return new Lot[]{t26,t27,t29};
+		}
+		else if (lot==w19) {
+			return new Lot[]{t28,t29,t31};
+		}
+		else if (lot==w20) {
+			return new Lot[]{t30,t31};
+		}
+		
+		//trenches and trenches
+		else if (lot==t1) {
+			return new Lot[]{t2,t3,t4};
+		}
+		else if (lot==t2) {
+			return new Lot[]{t1,t9,t12};
+		}
+		else if (lot==t3) {
+			return new Lot[]{t1,t4,t5,t6};
+		}
+		else if (lot==t4) {
+			return new Lot[]{t1,t3,t9,t11,t14};
+		}
+		else if (lot==t5) {
+			return new Lot[]{t3,t6,t7,t8};
+		}
+		else if (lot==t6) {
+			return new Lot[]{t3,t5,t11,t13,t16};
+		}
+		else if (lot==t7) {
+			return new Lot[]{t5,t8,t10};
+		}
+		else if (lot==t8) {
+			return new Lot[]{t5,t7,t13,t15,t18};
+		}
+		else if (lot==t9) {
+			return new Lot[]{t2,t4,t11,t12,t14};
+		}
+		else if (lot==t10) {
+			return new Lot[]{t7,t15,t20};
+		}
+		else if (lot==t11) {
+			return new Lot[]{t4,t6,t9,t13,t14,t16};
+		}
+		else if (lot==t12) {
+			return new Lot[]{t2,t9,t17,t22};
+		}
+		else if (lot==t13) {
+			return new Lot[]{t6,t8,t11,t15,t16,t18};
+		}
+		else if (lot==t14) {
+			return new Lot[]{t4,t9,t11,t17,t19,t24};
+		}
+		else if (lot==t15) {
+			return new Lot[]{t8,t10,t13,t18,t20};
+		}
+		else if (lot==t16) {
+			return new Lot[]{t6,t11,t13,t19,t21,t26};
+		}
+		else if (lot==t17) {
+			return new Lot[]{t12,t14,t19,t22,t24};
+		}
+		else if (lot==t18) {
+			return new Lot[]{t8,t13,t15,t21,t23,t28};
+		}
+		else if (lot==t20) {
+			return new Lot[]{t10,t15,t23,t30};
+		}
+		else if (lot==t21) {
+			return new Lot[]{t16,t18,t19,t23,t26,t28};
+		}
+		else if (lot==t22) {
+			return new Lot[]{t12,t17,t25};
+		}
+		else if (lot==t23) {
+			return new Lot[]{t18,t20,t21,t28,t30};
+		}
+		else if (lot==t24) {
+			return new Lot[]{t14,t17,t19,t25,t27};
+		}
+		else if (lot==t25) {
+			return new Lot[]{t22,t24,t27};
+		}
+		else if (lot==t26) {
+			return new Lot[]{t16,t19,t21,t27,t29};
+		}
+		else if (lot==t27) {
+			return new Lot[]{t24,t25,t26,t29};
+		}
+		else if (lot==t28) {
+			return new Lot[]{t18,t21,t23,t29,t31};
+		}
+		else if (lot==t29) {
+			return new Lot[]{t26,t27,t28,t31};
+		}
+		else if (lot==t30) {
+			return new Lot[]{t20,t23,t31};
+		}
+		else if (lot==t31) {
+			return new Lot[]{t28,t29,t30};
+		}
+		
+		//default
+		else
+			return new Lot[]{};
+	}
+	
+	/*
 	 * Irrigates a specific land, a specific well, or a trench with all the associated lands as well
 	 */
 	public void irrigate(Lot lot) {
@@ -364,7 +530,7 @@ public class Board {
 		for(int i = 0; i < trenches.length; i++) {
 			if(trenches[i]==lot){
 				trenches[i].irrigate();
-				irrigateLands(connectedLots(trenches[i]));
+				irrigateLands(connectedLands(trenches[i]));
 				return;
 			}
 		}
@@ -398,6 +564,26 @@ public class Board {
 				((Crop) lands[i]).reduceWorkers();
 			}
 		}
+	}
+	
+	/*
+	 * Adds crops to the board
+	 */
+	public void addCrop(Crop c, int pos){
+		this.lands[pos]=c;
+	}
+	
+	/*
+	 * Returns the positions of unoccupied lands that are irrigated
+	 */
+	public List<Integer> checkIrrigatedFreeLands(){
+		List<Integer> result = null;
+		for(int i=0; i<lands.length; i++){
+			if(lands[i] instanceof Crop && lands[i].isIrrigated){
+				result.add(i);
+			}
+		}
+		return result;
 	}
 	
 	/*
