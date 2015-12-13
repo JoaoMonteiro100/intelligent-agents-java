@@ -88,11 +88,22 @@ public class ManagerAgent extends MyAgent {
 				String[] a = msg.getContent().split("B");
 				int bid = Integer.parseInt(a[1].trim());
 				System.out.println("A bid do " + msg.getSender().getLocalName() + " foi " + bid);
+				
 				if(bid > maxBid){
 					maxBid = bid;
 					bestBidder = playerTurn;
 				}
 				nBids += 1;
+				
+				if (minBid == -1){
+					minBid = bid;
+					lowestBidder = playerTurn;
+				}
+					
+				if(bid < minBid){
+					minBid = bid;
+					lowestBidder = playerTurn;
+				}
 				
 				if(playerTurn == 5)
 					playerTurn = 1;
@@ -101,16 +112,25 @@ public class ManagerAgent extends MyAgent {
 				sendMessage("player" + playerTurn, "BID-" + maxBid, ACLMessage.REQUEST);
 			}
 			else{
-				System.out.println("Best bidder was player " + bestBidder);
 				
-				for(int i = 0; i < 4; i++){
+				System.out.println("Best bidder was player" + bestBidder);
+				System.out.println("Overseer will be player" + lowestBidder);
+				
+				//Sorteio das cinco cartas das plantações para escolha por parte dos jogadores
+				for(int i = 0; i < 5; i++){
 					Crop c = Crop.sortCrop();
 					System.out.println(c);
 				}
 				
+				//TODO: Escolher cartas e metê-las no sítio certo
+				
+				//Envio mensagem ao novo Overseer
+				
+				for(int i = 1; i < 6; i++)
+					sendMessage("player" + i, "OVERSEER-" + lowestBidder, ACLMessage.INFORM);
+				
 				gameOver = true;
 			}
-			//else escolher cartas e subornos
 		}
 
 		@Override
@@ -128,8 +148,8 @@ public class ManagerAgent extends MyAgent {
 		maxBid = 0;
 		bestBidder = 0;
 		lowestBidder = 0;
+		minBid = -1;
 		
-		minBid = 0;
 		registryDF("Manager", getAID().getLocalName());
 		
 		// Printout a welcome message

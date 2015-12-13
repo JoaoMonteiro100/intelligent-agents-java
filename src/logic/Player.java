@@ -1,5 +1,7 @@
 package logic;
 
+import java.util.ArrayList;
+
 public abstract class Player {
 	
 	protected int money;
@@ -33,4 +35,6 @@ public abstract class Player {
 	}
 	
 	public abstract int bid(int maxBid);
+	
+	public abstract int bribe(int overseer);
 }
