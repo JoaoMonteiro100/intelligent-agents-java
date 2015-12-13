@@ -2,6 +2,8 @@ package logic;
 
 import java.util.List;
 
+import logic.Crop.Vegetable;
+
 public class Board {
 	
 	private Lot a1, a2, a3, a4,
@@ -581,6 +583,19 @@ public class Board {
 		for(int i=0; i<lands.length; i++){
 			if(lands[i] instanceof Crop && lands[i].isIrrigated){
 				result.add(i);
+			}
+		}
+		return result;
+	}
+	
+	/*
+	 * Checks how many crops of a certain type exist
+	 */
+	public int countCrops(Vegetable type){
+		int result = 0;
+		for(int i=0; i<lands.length; i++){
+			if(lands[i] instanceof Crop && ((Crop) lands[i]).getType().equals(type)){
+				result++;
 			}
 		}
 		return result;
