@@ -14,7 +14,7 @@ public class ManagerAgent extends MyAgent {
 	private static final int N_PLAYERS = 5;
 	private Game gameInfo;
 	private Boolean gameOver;
-	private int playerTurn, maxBid, nBids, bestBidder;
+	private int playerTurn, maxBid, minBid, nBids, bestBidder, lowestBidder;
 	
 	private class StartingBehaviour extends MyBehaviour{
 		
@@ -36,7 +36,7 @@ public class ManagerAgent extends MyAgent {
 				char c = reader.findInLine(".").charAt(0);
 				switch(c){
 				case 'A':
-					Random a = new Random();
+					RandomPlayer a = new RandomPlayer();
 					gameInfo.addPlayer(playerName, a);
 					break;
 				case 'R':
@@ -102,6 +102,12 @@ public class ManagerAgent extends MyAgent {
 			}
 			else{
 				System.out.println("Best bidder was player " + bestBidder);
+				
+				for(int i = 0; i < 4; i++){
+					Crop c = Crop.sortCrop();
+					System.out.println(c);
+				}
+				
 				gameOver = true;
 			}
 			//else escolher cartas e subornos
@@ -121,6 +127,9 @@ public class ManagerAgent extends MyAgent {
 		nBids = 0; 
 		maxBid = 0;
 		bestBidder = 0;
+		lowestBidder = 0;
+		
+		minBid = 0;
 		registryDF("Manager", getAID().getLocalName());
 		
 		// Printout a welcome message

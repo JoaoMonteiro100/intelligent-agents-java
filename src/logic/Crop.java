@@ -1,23 +1,41 @@
 package logic;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 /*
  * A square on the board on which there is a plantation
  */
+
 public class Crop extends Lot {
-	private String vegetable;
-	private int workers;
-	private Boolean dry = false;
 	
-	public Crop(String type, int workers){
+	public enum Vegetable {
+		POTATO, 
+		TOMATO, 
+		BANANA, 
+		APPLE, 
+		ORANGE, 
+		ONION;
+		
+		public static Vegetable getRandom() {
+	        return values()[(int) (Math.random() * values().length)];
+	    }
+	}
+	
+	private Vegetable vegetable;
+	private int workers;
+	private Boolean dry;
+	
+	public Crop(Vegetable type, int workers){
 		this.vegetable = type;
 		this.workers = workers;
+		this.dry = false;
 	}
 
-	public String getType() {
+	public Vegetable getType() {
 		return vegetable;
 	}
 
-	public void setType(String type) {
+	public void setType(Vegetable type) {
 		this.vegetable = type;
 	}
 
@@ -37,4 +55,22 @@ public class Crop extends Lot {
 			this.dry = true;
 		}
 	}
+	
+	public Boolean isDry(){
+		return this.dry;
+	}
+	
+	public static Crop sortCrop(){
+		Vegetable veg = Vegetable.getRandom();
+		int workers = ThreadLocalRandom.current().nextInt(1,4);
+		Crop c = new Crop(veg, workers);
+		return c;
+	}
+
+	@Override
+	public String toString() {
+		return "Crop [vegetable=" + vegetable + ", workers=" + workers
+				+ "]";
+	}
+
 }

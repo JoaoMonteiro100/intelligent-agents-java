@@ -4,7 +4,7 @@ import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import logic.Player;
-import logic.Random;
+import logic.RandomPlayer;
 import logic.Rational;
 import logic.Spender;
 
@@ -19,14 +19,12 @@ public class PlayerAgent extends MyAgent {
 
 		@Override
 		public void action(){
-			
-			//Game cycle TODO: Continuar a meter aí mais mensagens
 			ACLMessage msg = blockingReceive();
 			String[] parts = msg.getContent().split("-");
 			switch(parts[0]){
 			case "STARTA": //joining game as a random agent
 				sendReply(msg, "GAME", ACLMessage.ACCEPT_PROPOSAL);
-				playerInfo = new Random();
+				playerInfo = new RandomPlayer();
 				break;
 			case "STARTR": //joining game as a rational agent
 				sendReply(msg, "GAME", ACLMessage.ACCEPT_PROPOSAL);
