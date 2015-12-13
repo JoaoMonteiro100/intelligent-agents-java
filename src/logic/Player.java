@@ -1,5 +1,7 @@
 package logic;
 
+import java.util.ArrayList;
+
 public abstract class Player {
 	
 	protected int money;
