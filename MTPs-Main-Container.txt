@@ -1,1 +1,1 @@
-http://JOAO-PC:7778/acc
+http://Miguel:7778/acc

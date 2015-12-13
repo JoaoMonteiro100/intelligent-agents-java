@@ -32,5 +32,5 @@ public abstract class Player {
 		return overseer;
 	}
 	
-	public abstract int bid();
+	public abstract int bid(int maxBid);
 }

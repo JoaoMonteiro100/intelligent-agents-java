@@ -22,7 +22,8 @@ public class PlayerAgent extends MyAgent {
 			
 			//Game cycle TODO: Continuar a meter aí mais mensagens
 			ACLMessage msg = blockingReceive();
-			switch(msg.getContent().split("-")[0]){
+			String[] parts = msg.getContent().split("-");
+			switch(parts[0]){
 			case "STARTA": //joining game as a random agent
 				sendReply(msg, "GAME", ACLMessage.ACCEPT_PROPOSAL);
 				playerInfo = new Random();
@@ -36,7 +37,8 @@ public class PlayerAgent extends MyAgent {
 				playerInfo = new Spender();
 				break;
 			case "BID": // bid on plantations
-				sendReply(msg, "B" + playerInfo.bid(), ACLMessage.PROPOSE); //TODO:Arranjar fórmulas para as bids
+				int maxBid = Integer.parseInt(parts[1]);
+				sendReply(msg, "B" + playerInfo.bid(maxBid), ACLMessage.PROPOSE); //TODO:Arranjar fórmulas para as bids
 				break;
 			}
 		}

@@ -67,11 +67,8 @@ public class ManagerAgent extends MyAgent {
 			}
 			
 			//Randomly choose first player to play and tell him that
-			nBids = 0; 
-			maxBid = 0;
-			bestBidder = 0;
 			playerTurn = gameInfo.shuffleTurn();
-			sendMessage("player" + playerTurn, "BID", ACLMessage.REQUEST);
+			sendMessage("player" + playerTurn, "BID-0", ACLMessage.REQUEST);
 		}
 
 		@Override
@@ -101,7 +98,7 @@ public class ManagerAgent extends MyAgent {
 					playerTurn = 1;
 				else playerTurn += 1;
 				
-				sendMessage("player" + playerTurn, "BID", ACLMessage.REQUEST);
+				sendMessage("player" + playerTurn, "BID-" + maxBid, ACLMessage.REQUEST);
 			}
 			else{
 				System.out.println("Best bidder was player " + bestBidder);
@@ -121,6 +118,9 @@ public class ManagerAgent extends MyAgent {
 		
 		gameInfo = new Game();
 		gameOver = false;
+		nBids = 0; 
+		maxBid = 0;
+		bestBidder = 0;
 		registryDF("Manager", getAID().getLocalName());
 		
 		// Printout a welcome message
