@@ -13,4 +13,10 @@ public class RandomPlayer extends Player {
 		return 0;
 	}
 
+	@Override
+	public int bribe(int overseer) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

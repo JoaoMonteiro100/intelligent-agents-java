@@ -13,6 +13,7 @@ public class PlayerAgent extends MyAgent {
 	private static final long serialVersionUID = 1L;
 	private Player playerInfo;
 	private Boolean gameOver = false;
+	private int overseer = 0;
 	private class PlayerBehaviour extends MyBehaviour {
 		
 		private static final long serialVersionUID = 1L;
@@ -38,6 +39,9 @@ public class PlayerAgent extends MyAgent {
 				int maxBid = Integer.parseInt(parts[1]);
 				sendReply(msg, "B" + playerInfo.bid(maxBid), ACLMessage.PROPOSE); //TODO:Arranjar fórmulas para as bids
 				break;
+			case "OVERSEER": //receiving info on who is overseer
+					overseer = Integer.parseInt(parts[1]);
+					//TODO: Decidir aqui se vai fazer bribe ou não
 			}
 		}
 		

@@ -124,6 +124,11 @@ public class ManagerAgent extends MyAgent {
 				
 				//TODO: Escolher cartas e metê-las no sítio certo
 				
+				//Envio mensagem ao novo Overseer
+				
+				for(int i = 1; i < 6; i++)
+					sendMessage("player" + i, "OVERSEER-" + lowestBidder, ACLMessage.INFORM);
+				
 				gameOver = true;
 			}
 		}

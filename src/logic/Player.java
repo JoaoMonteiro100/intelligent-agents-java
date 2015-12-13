@@ -35,4 +35,6 @@ public abstract class Player {
 	}
 	
 	public abstract int bid(int maxBid);
+	
+	public abstract int bribe(int overseer);
 }
