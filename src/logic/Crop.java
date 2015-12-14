@@ -24,6 +24,7 @@ public class Crop extends Lot {
 	private Vegetable vegetable;
 	private int workers;
 	private Boolean dry;
+	private Player owner;
 	
 	public Crop(Vegetable type, int workers){
 		this.vegetable = type;
@@ -69,8 +70,7 @@ public class Crop extends Lot {
 
 	@Override
 	public String toString() {
-		return "Crop [vegetable=" + vegetable + ", workers=" + workers
-				+ "]";
+		return "" + vegetable + workers;
 	}
 
 }

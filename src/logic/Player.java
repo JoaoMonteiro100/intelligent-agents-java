@@ -36,5 +36,7 @@ public abstract class Player {
 	
 	public abstract int bid(int maxBid);
 	
-	public abstract int bribe(int overseer);
+	public abstract int bribe();
+	
+	public abstract String choosePlantation(String list, int[] occurences);
 }

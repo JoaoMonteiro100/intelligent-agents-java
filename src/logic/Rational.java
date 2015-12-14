@@ -7,8 +7,12 @@ public class Rational extends Player {
 	}
 
 	@Override
-	public int bribe(int overseer) {
-		// TODO Auto-generated method stub
+	public int bribe() {
 		return 0;
+	}
+
+	@Override
+	public String choosePlantation(String list, int[] occurences) {
+		return null;
 	}
 }

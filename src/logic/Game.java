@@ -35,4 +35,12 @@ public class Game {
 		return null;
 			
 	}
+	
+	public Board getBoard(){
+		return board;
+	}
+	
+	public Player getPlayer(String name){
+		return players.get(name);
+	}
 }

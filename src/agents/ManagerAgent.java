@@ -12,9 +12,12 @@ public class ManagerAgent extends MyAgent {
 
 	private static final long serialVersionUID = 1L;
 	private static final int N_PLAYERS = 5;
+	private static final int N_ROUNDS = 9;
 	private Game gameInfo;
-	private Boolean gameOver;
-	private int playerTurn, maxBid, minBid, nBids, bestBidder, lowestBidder;
+	private Boolean gameOver, bribing = false;
+	private int playerTurn, maxBid, minBid, nBids, bestBidder, lowestBidder, rounds;
+	private int[] frequency = new int [6];
+	//POTATO,TOMATO,BANANA,APPLE,ORANGE,ONION;
 	
 	private class StartingBehaviour extends MyBehaviour{
 		
@@ -84,15 +87,20 @@ public class ManagerAgent extends MyAgent {
 		@Override
 		public void action() {
 			if(nBids < N_PLAYERS){
+				
 				ACLMessage msg = blockingReceive();
+				System.out.println(msg.getContent());
 				String[] a = msg.getContent().split("B");
 				int bid = Integer.parseInt(a[1].trim());
+				
+				System.out.println("Turno player" + playerTurn);
 				System.out.println("A bid do " + msg.getSender().getLocalName() + " foi " + bid);
 				
 				if(bid > maxBid){
 					maxBid = bid;
 					bestBidder = playerTurn;
 				}
+				
 				nBids += 1;
 				
 				if (minBid == -1){
@@ -111,25 +119,60 @@ public class ManagerAgent extends MyAgent {
 				
 				sendMessage("player" + playerTurn, "BID-" + maxBid, ACLMessage.REQUEST);
 			}
-			else{
+			else {
 				
 				System.out.println("Best bidder was player" + bestBidder);
 				System.out.println("Overseer will be player" + lowestBidder);
 				
+				if(lowestBidder == 5)
+					playerTurn = 1;
+				else playerTurn = lowestBidder + 1;
+				
+				System.out.println("First player of the next round will be player" + playerTurn);
+				
+				//Enviar frequências para efeitos de AI
+				for(int i = 0; i < N_PLAYERS; i++)
+					sendMessage("player" + (i+1), "OCCURENCES" + 
+						frequency[0] + 
+						frequency[1] + 
+						frequency[2] + 
+						frequency[3] + 
+						frequency[4] + 
+						frequency[5], ACLMessage.INFORM);
+				
 				//Sorteio das cinco cartas das plantações para escolha por parte dos jogadores
+				Crop[] crops = new Crop[5];
+				String options = "";
 				for(int i = 0; i < 5; i++){
 					Crop c = Crop.sortCrop();
-					System.out.println(c);
+					crops[i] = c;
+					options = options + c + "-";
 				}
+				
+				sendMessage("player" + bestBidder, "CHOOSEW-" + options, ACLMessage.PROPOSE);
+				gameInfo.getPlayer("player"+ bestBidder).pay(maxBid);
+				
+				ACLMessage msg = blockingReceive();
+				
+				
 				
 				//TODO: Escolher cartas e metê-las no sítio certo
 				
-				//Envio mensagem ao novo Overseer
+				//Envio mensagem aos jogadores para conhecimento do Overseer
+				//for(int i = 0; i < N_PLAYERS; i++)
+					//sendMessage("player" + (i+1), "OVERSEER-" + lowestBidder, ACLMessage.INFORM);
 				
-				for(int i = 1; i < 6; i++)
-					sendMessage("player" + i, "OVERSEER-" + lowestBidder, ACLMessage.INFORM);
+				nBids = 0; 
+				maxBid = 0;
+				bestBidder = 0;
+				lowestBidder = 0;
+				minBid = -1;
+				rounds += 1;
 				
-				gameOver = true;
+				if(rounds == N_ROUNDS){
+					gameOver = true;
+					//TODO: Contagem dos pontos
+				}
 			}
 		}
 
@@ -149,6 +192,10 @@ public class ManagerAgent extends MyAgent {
 		bestBidder = 0;
 		lowestBidder = 0;
 		minBid = -1;
+		rounds = 0;
+		
+		for(int i = 0; i < frequency.length; i++)
+			frequency[i] = 0;
 		
 		registryDF("Manager", getAID().getLocalName());
 		

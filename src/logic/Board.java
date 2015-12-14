@@ -576,9 +576,10 @@ public class Board {
 	/*
 	 * Returns the positions of unoccupied lands that are irrigated
 	 */
+	
 	public List<Integer> checkIrrigatedFreeLands(){
 		List<Integer> result = null;
-		for(int i=0; i<lands.length; i++){
+		for(int i=0; i < lands.length; i++){
 			if(lands[i] instanceof Crop && lands[i].isIrrigated){
 				result.add(i);
 			}

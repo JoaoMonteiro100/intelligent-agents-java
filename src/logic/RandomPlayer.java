@@ -14,9 +14,17 @@ public class RandomPlayer extends Player {
 	}
 
 	@Override
-	public int bribe(int overseer) {
-		// TODO Auto-generated method stub
+	public int bribe() {
+		int coin = ThreadLocalRandom.current().nextInt(0,2);
+		if(coin == 1)
+			return ThreadLocalRandom.current().nextInt(0 + 1, (int) (0.3 * money));
 		return 0;
+	}
+	
+	@Override
+	public String choosePlantation(String list, int[] occurences) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
