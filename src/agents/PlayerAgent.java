@@ -25,7 +25,7 @@ public class PlayerAgent extends MyAgent {
 		@Override
 		public void action(){
 			ACLMessage msg = blockingReceive();
-			String[] parts = msg.getContent().split("-");
+			String[] parts = msg.getContent().split("-", 2);
 			switch(parts[0]){
 			case "STARTA": //joining game as a random agent
 				sendReply(msg, "GAME", ACLMessage.ACCEPT_PROPOSAL);
@@ -42,17 +42,19 @@ public class PlayerAgent extends MyAgent {
 			case "BID": // bid on plantations
 				int maxBid = Integer.parseInt(parts[1]);
 				lastBid = playerInfo.bid(maxBid);
-				sendReply(msg, "B" + lastBid, ACLMessage.PROPOSE); //TODO:Arranjar fórmulas para as bids para Spender e Rational
+				sendReply(msg, "B" + lastBid, ACLMessage.PROPOSE);
+				//TODO:Arranjar fórmulas para as bids para Spender e Rational
 				break;
 			case "OVERSEER": //receiving info on who is overseer
 				overseer = Integer.parseInt(parts[1]);
 				int bribeAmount = playerInfo.bribe();
-				sendMessage("player" + overseer, "BR-" + bribeAmount, ACLMessage.PROPOSE);
+				sendMessage("player" + overseer, "BR" + bribeAmount, ACLMessage.PROPOSE);
 				break;
 			case "CHOOSEW": //if first player choosing (won bidding)
-				String options = parts[1] + parts[2] + parts[3] + parts[4] + parts[5];
-				String choice = playerInfo.choosePlantation(options, frequency);
+				//String options = parts[1] + "-" + parts[2]+ "-" + parts[3] + "-" + parts[4] + "-" + parts[5];
+				String choice = playerInfo.choosePlantation(parts[1], frequency);
 				playerInfo.pay(lastBid);
+				sendReply(msg, "C" + choice, ACLMessage.INFORM);
 				break;
 			case "CHOOSE": //if lost bidding
 				//TODO: caso onde o jogador não ganhou o leilão

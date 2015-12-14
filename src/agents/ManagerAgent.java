@@ -71,7 +71,6 @@ public class ManagerAgent extends MyAgent {
 			
 			//Randomly choose first player to play and tell him that
 			playerTurn = gameInfo.shuffleTurn();
-			sendMessage("player" + playerTurn, "BID-0", ACLMessage.REQUEST);
 		}
 
 		@Override
@@ -88,12 +87,12 @@ public class ManagerAgent extends MyAgent {
 		public void action() {
 			if(nBids < N_PLAYERS){
 				
+				sendMessage("player" + playerTurn, "BID-" + maxBid, ACLMessage.REQUEST);
+				
 				ACLMessage msg = blockingReceive();
-				System.out.println(msg.getContent());
 				String[] a = msg.getContent().split("B");
 				int bid = Integer.parseInt(a[1].trim());
 				
-				System.out.println("Turno player" + playerTurn);
 				System.out.println("A bid do " + msg.getSender().getLocalName() + " foi " + bid);
 				
 				if(bid > maxBid){
@@ -117,28 +116,28 @@ public class ManagerAgent extends MyAgent {
 					playerTurn = 1;
 				else playerTurn += 1;
 				
-				sendMessage("player" + playerTurn, "BID-" + maxBid, ACLMessage.REQUEST);
 			}
+			
 			else {
 				
-				System.out.println("Best bidder was player" + bestBidder);
-				System.out.println("Overseer will be player" + lowestBidder);
+				/*System.out.println("Best bidder was player" + bestBidder);
+				System.out.println("Overseer will be player" + lowestBidder);*/
 				
 				if(lowestBidder == 5)
 					playerTurn = 1;
 				else playerTurn = lowestBidder + 1;
 				
-				System.out.println("First player of the next round will be player" + playerTurn);
+				//System.out.println("First player of the next round will be player" + playerTurn);
 				
 				//Enviar frequências para efeitos de AI
-				for(int i = 0; i < N_PLAYERS; i++)
+				/*for(int i = 0; i < N_PLAYERS; i++)
 					sendMessage("player" + (i+1), "OCCURENCES" + 
 						frequency[0] + 
 						frequency[1] + 
 						frequency[2] + 
 						frequency[3] + 
 						frequency[4] + 
-						frequency[5], ACLMessage.INFORM);
+						frequency[5], ACLMessage.INFORM);*/
 				
 				//Sorteio das cinco cartas das plantações para escolha por parte dos jogadores
 				Crop[] crops = new Crop[5];
@@ -150,10 +149,13 @@ public class ManagerAgent extends MyAgent {
 				}
 				
 				sendMessage("player" + bestBidder, "CHOOSEW-" + options, ACLMessage.PROPOSE);
-				gameInfo.getPlayer("player"+ bestBidder).pay(maxBid);
+				//gameInfo.getPlayer("player"+bestBidder).pay(maxBid);
 				
 				ACLMessage msg = blockingReceive();
-				
+				String res = msg.getContent();
+				if(res.substring(0, 1).equals("C")){
+					System.out.println(res.substring(1, res.length()));
+				}
 				
 				
 				//TODO: Escolher cartas e metê-las no sítio certo

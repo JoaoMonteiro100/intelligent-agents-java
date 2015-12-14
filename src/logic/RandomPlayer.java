@@ -7,7 +7,7 @@ public class RandomPlayer extends Player {
 	public int bid(int maxBid){
 		int coin = ThreadLocalRandom.current().nextInt(0,2); //he tosses a coin (heads or tails)
 		if (maxBid+1 < 0.3*money && coin == 1){ //if he has enough money and it was heads
-			return ThreadLocalRandom.current().nextInt(maxBid + 1, (int) (0.3 * money)); //he will bid some affordable amount
+			return ThreadLocalRandom.current().nextInt(maxBid + 1, (int) (0.3 * money) + 1); //he will bid some affordable amount
 		}
 		else if (coin == 1) { //if he doesn't have enough money and it was heads
 			return ThreadLocalRandom.current().nextInt(1, maxBid); //he will bid lower than the max bid
@@ -25,8 +25,9 @@ public class RandomPlayer extends Player {
 	
 	@Override
 	public String choosePlantation(String list, int[] occurences) {
-		// TODO Auto-generated method stub
-		return null;
+		String[] parts = list.split("-");
+		int choice = ThreadLocalRandom.current().nextInt(0,parts.length);
+		return parts[choice];
 	}
 
 }
